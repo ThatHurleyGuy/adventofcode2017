@@ -7,6 +7,7 @@ defmodule AdventOfCode2017 do
       "2.2" -> Day2.checksum_division("data/day2.txt")
       "3" -> Day3.shortest_path(265149)
       "4" -> Day4.count_valid_passwords("data/day4.txt")
+      "4.2" -> Day4.count_valid_passwords_part_2("data/day4.txt")
     end
 
     IO.inspect result
