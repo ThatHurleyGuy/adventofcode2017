@@ -1,24 +1,35 @@
 defmodule Day6 do
-  def count_redistributions(file) do
+  def count_steps(file) do
+    memory = build_memory(file)
+    {total_steps, _} = count_redistributions(memory)
+    total_steps
+  end
+
+  def count_infinite_loop(file) do
+    memory = build_memory(file)
+    {_, steps_in_cycle} = count_redistributions(memory)
+    steps_in_cycle
+  end
+
+  defp build_memory(file) do
     {:ok, contents} = File.read(file)
-    memory = String.trim(contents)
+    String.trim(contents)
     |> String.split(~r{\s+})
     |> Enum.map(&(String.to_integer(&1) + 0.0))
     |> Enum.with_index
     |> Enum.reduce(%{}, fn({blocks, bank}, memory) ->
       Map.put(memory, bank, blocks)
     end)
-
-    count_redistributions(memory, MapSet.new)
   end
 
-  defp count_redistributions(memory, history) do
-    if MapSet.member?(history, memory) do
-      0
+  defp count_redistributions(memory, history \\ %{}, step \\ 0) do
+    if Map.has_key?(history, memory) do
+      last_step = history[memory]
+      {step, step - last_step}
     else
-      history = MapSet.put(history, memory)
+      history = Map.put(history, memory, step)
       memory = redistribute(memory)
-      1 + count_redistributions(memory, history)
+      count_redistributions(memory, history, step + 1)
     end
   end
 
