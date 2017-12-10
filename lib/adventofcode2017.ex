@@ -12,6 +12,8 @@ defmodule AdventOfCode2017 do
       "5.2" -> Day5.part2("data/day5.txt")
       "6" -> Day6.count_steps("data/day6.txt")
       "6.2" -> Day6.count_infinite_loop("data/day6.txt")
+      "7" -> Day7.bottom_program("data/day7.txt")
+      "7.2" -> Day7.balance("data/day7.txt")
     end
 
     IO.inspect result
