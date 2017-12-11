@@ -14,6 +14,7 @@ defmodule AdventOfCode2017 do
       "6.2" -> Day6.count_infinite_loop("data/day6.txt")
       "8" -> Day8.largest_register("data/day8.txt")
       "8.2" -> Day8.largest_register_ever("data/day8.txt")
+      "9" -> Day9.groups("data/day9.txt")
     end
 
     IO.inspect result
