@@ -16,6 +16,7 @@ defmodule AdventOfCode2017 do
       "8.2" -> Day8.largest_register_ever("data/day8.txt")
       "9" -> Day9.groups("data/day9.txt")
       "9.2" -> Day9.garbage("data/day9.txt")
+      "11" -> Day11.distance("data/day11.txt")
     end
 
     IO.inspect result
