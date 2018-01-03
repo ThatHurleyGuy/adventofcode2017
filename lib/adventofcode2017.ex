@@ -20,6 +20,7 @@ defmodule AdventOfCode2017 do
       "11.2" -> Day11.furthest_distance("data/day11.txt")
       "12" -> Day12.count("data/day12.txt")
       "12.2" -> Day12.count_groups("data/day12.txt")
+      "13" -> Day13.severity("data/day13.txt")
     end
 
     IO.inspect result
