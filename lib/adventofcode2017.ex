@@ -19,6 +19,7 @@ defmodule AdventOfCode2017 do
       "11" -> Day11.distance("data/day11.txt")
       "11.2" -> Day11.furthest_distance("data/day11.txt")
       "12" -> Day12.count("data/day12.txt")
+      "12.2" -> Day12.count_groups("data/day12.txt")
     end
 
     IO.inspect result
