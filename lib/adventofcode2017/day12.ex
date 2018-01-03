@@ -1,10 +1,6 @@
 defmodule Day12 do
   def count_groups(file) do
-    {:ok, contents} = File.read(file)
-    set = String.trim(contents)
-    |> String.split("\n")
-    |> Enum.map(&parse_line/1)
-    |> build_disjoint_set
+    set = parse_file(file)
 
     Enum.reduce(set, MapSet.new, fn({_, {node, _}}, groups) ->
       {{node_parent, _}, _} = find(set, node)
@@ -14,12 +10,7 @@ defmodule Day12 do
   end
 
   def count(file) do
-    {:ok, contents} = File.read(file)
-    set = String.trim(contents)
-    |> String.split("\n")
-    |> Enum.map(&parse_line/1)
-    |> build_disjoint_set
-
+    set = parse_file(file)
     {{parent, _}, set} = find(set, 0)
 
     Enum.filter(set, fn({_, {node, _}}) ->
@@ -27,6 +18,14 @@ defmodule Day12 do
       node_parent == parent
     end)
     |> length
+  end
+
+  defp parse_file(file) do
+    {:ok, contents} = File.read(file)
+    String.trim(contents)
+    |> String.split("\n")
+    |> Enum.map(&parse_line/1)
+    |> build_disjoint_set
   end
 
   defp build_disjoint_set(nodes) do
