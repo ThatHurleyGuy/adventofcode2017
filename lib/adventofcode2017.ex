@@ -18,6 +18,7 @@ defmodule AdventOfCode2017 do
       "9.2" -> Day9.garbage("data/day9.txt")
       "11" -> Day11.distance("data/day11.txt")
       "11.2" -> Day11.furthest_distance("data/day11.txt")
+      "12" -> Day12.count("data/day12.txt")
     end
 
     IO.inspect result
