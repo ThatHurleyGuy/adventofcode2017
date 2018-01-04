@@ -21,6 +21,7 @@ defmodule AdventOfCode2017 do
       "12" -> Day12.count("data/day12.txt")
       "12.2" -> Day12.count_groups("data/day12.txt")
       "13" -> Day13.severity("data/day13.txt")
+      "13.2" -> Day13.find_delay("data/day13.txt")
     end
 
     IO.inspect result
