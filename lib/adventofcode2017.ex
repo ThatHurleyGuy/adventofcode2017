@@ -16,12 +16,14 @@ defmodule AdventOfCode2017 do
       "8.2" -> Day8.largest_register_ever("data/day8.txt")
       "9" -> Day9.groups("data/day9.txt")
       "9.2" -> Day9.garbage("data/day9.txt")
+      "10" -> Day10.hash([212,254,178,237,2,0,1,54,167,92,117,125,255,61,159,164])
       "11" -> Day11.distance("data/day11.txt")
       "11.2" -> Day11.furthest_distance("data/day11.txt")
       "12" -> Day12.count("data/day12.txt")
       "12.2" -> Day12.count_groups("data/day12.txt")
       "13" -> Day13.severity("data/day13.txt")
       "13.2" -> Day13.find_delay("data/day13.txt")
+      "14" -> Day14.count_used("flqrgnkx")
     end
 
     IO.inspect result
