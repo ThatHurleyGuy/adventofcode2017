@@ -24,9 +24,9 @@ defmodule AdventOfCode2017 do
       "12.2" -> Day12.count_groups("data/day12.txt")
       "13" -> Day13.severity("data/day13.txt")
       "13.2" -> Day13.find_delay("data/day13.txt")
-      "14" -> Day14.count_used("flqrgnkx")
+      "14" -> Day14.count_used("wenycdww")
     end
 
-    IO.inspect result
+    IO.inspect result, limit: :infinity
   end
 end
