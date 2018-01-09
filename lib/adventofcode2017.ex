@@ -26,6 +26,7 @@ defmodule AdventOfCode2017 do
       "13.2" -> Day13.find_delay("data/day13.txt")
       "14" -> Day14.count_used("wenycdww")
       "14.2" -> Day14.count_regions("wenycdww")
+      "15" -> Day15.judge(883, 1, 879, 1, 40000000)
     end
 
     IO.inspect result, limit: :infinity
