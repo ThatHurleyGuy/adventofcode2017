@@ -1,14 +1,28 @@
 defmodule Day15 do
   use Bitwise
 
-  def judge(a_start, b_start) do
-    {list, _} = Enum.map_reduce(0..40000000, {a_start, b_start}, fn(_index, {previous_a, previous_b}) ->
-      next_a = rem(previous_a * 16807, 2147483647)
-      next_b = rem(previous_b * 48271, 2147483647)
-      match = (next_a &&& 0xffff) == (next_b &&& 0xffff)
-      {match, {next_a, next_b}}
+  def judge(a_start, a_multiple, b_start, b_multiple, max) do
+    stream(a_start, 16807, a_multiple)
+    |> Stream.zip(stream(b_start, 48271, b_multiple))
+    |> Stream.take(max)
+    |> Stream.filter(fn({a, b}) ->
+      (a &&& 0xffff) == (b &&& 0xffff)
     end)
-    Enum.filter(list, &(&1))
+    |> Enum.to_list
     |> length
+  end
+
+  defp stream(start, factor, multiple) do
+    start
+    |> Stream.iterate(&(next_value(&1, factor, multiple)))
+  end
+
+  defp next_value(start, factor, multiple) do
+    next = rem(start * factor, 2147483647)
+    if rem(next, multiple) == 0 do
+      next
+    else
+      next_value(next, factor, multiple)
+    end
   end
 end

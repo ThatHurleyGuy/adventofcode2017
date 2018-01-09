@@ -27,6 +27,7 @@ defmodule AdventOfCode2017 do
       "14" -> Day14.count_used("wenycdww")
       "14.2" -> Day14.count_regions("wenycdww")
       "15" -> Day15.judge(883, 1, 879, 1, 40000000)
+      "15.2" -> Day15.judge(883, 4, 879, 8, 5000000)
     end
 
     IO.inspect result, limit: :infinity
