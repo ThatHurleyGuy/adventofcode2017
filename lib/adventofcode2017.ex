@@ -28,6 +28,8 @@ defmodule AdventOfCode2017 do
       "14.2" -> Day14.count_regions("wenycdww")
       "15" -> Day15.judge(883, 1, 879, 1, 40000000)
       "15.2" -> Day15.judge(883, 4, 879, 8, 5000000)
+      "16" -> Day16.dance("data/day16.txt")
+      "16.2" -> Day16.dance("data/day16.txt", 1000000000)
     end
 
     IO.inspect result, limit: :infinity
