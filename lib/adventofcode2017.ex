@@ -32,6 +32,7 @@ defmodule AdventOfCode2017 do
       "16.2" -> Day16.dance("data/day16.txt", 1000000000)
       "17" -> Day17.spinlock(301, 2017, 2017)
       "17.2" -> Day17.part2(301, 50000000, 0)
+      "18" -> Day18.process("data/day18.txt")
     end
 
     IO.inspect result, limit: :infinity
