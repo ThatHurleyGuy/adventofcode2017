@@ -30,6 +30,8 @@ defmodule AdventOfCode2017 do
       "15.2" -> Day15.judge(883, 4, 879, 8, 5000000)
       "16" -> Day16.dance("data/day16.txt")
       "16.2" -> Day16.dance("data/day16.txt", 1000000000)
+      "17" -> Day17.spinlock(301, 2017, 2017)
+      "17.2" -> Day17.part2(301, 50000000, 0)
     end
 
     IO.inspect result, limit: :infinity
