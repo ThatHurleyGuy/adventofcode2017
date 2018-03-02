@@ -4,15 +4,13 @@ defmodule Day20 do
     defstruct [:position, :velocity, :acceleration]
   end
 
-  def process(file) do
-    {:ok, contents} = File.read(file)
-    points = String.trim(contents)
-    |> String.split("\n")
-    |> Enum.map(&parse_line/1)
+  def count_left(file) do
+    process(file, true)
+    |> length
+  end
 
-    points = Enum.reduce(1..1000, points, fn(_, points) ->
-      tick(points)
-    end)
+  def find_closest(file) do
+    points = process(file)
 
     distances = distance(points)
     |> Enum.with_index
@@ -21,6 +19,22 @@ defmodule Day20 do
       distance
     end)
     point
+  end
+
+  def process(file, kill_duplicates \\ false) do
+    {:ok, contents} = File.read(file)
+    points = String.trim(contents)
+    |> String.split("\n")
+    |> Enum.map(&parse_line/1)
+
+    Enum.reduce(1..10000, points, fn(_, points) ->
+      points = tick(points)
+      if kill_duplicates do
+        remove_copied(points, fn(%{position: position}) -> position end)
+      else
+        points
+      end
+    end)
   end
 
   defp distance(points) do
@@ -63,5 +77,17 @@ defmodule Day20 do
     |> Enum.map(&String.to_integer/1)
 
     {x,y,z}
+  end
+
+  defp remove_copied(enum, function) do
+    set = %{}
+    counts = Enum.reduce(enum, set, fn(elem, set) ->
+      Map.update(set, function.(elem), 1, &(&1 + 1))
+    end)
+
+    Enum.filter(enum, fn(elem) ->
+      count = counts[function.(elem)]
+      count == 1
+    end)
   end
 end
