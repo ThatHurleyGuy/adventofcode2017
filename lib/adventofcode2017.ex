@@ -36,8 +36,8 @@ defmodule AdventOfCode2017 do
       "19" -> Day19.process("data/day19.txt")
       "20" -> Day20.find_closest("data/day20.txt")
       "20.2" -> Day20.count_left("data/day20.txt")
-      # 173
-      "21" -> Day21.process("data/day21.txt")
+      "21" -> Day21.process("data/day21.txt", 5)
+      "21.2" -> Day21.process("data/day21.txt", 18)
     end
 
     IO.inspect result, limit: :infinity

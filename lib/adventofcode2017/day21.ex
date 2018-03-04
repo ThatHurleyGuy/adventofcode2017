@@ -1,5 +1,5 @@
 defmodule Day21 do
-  def process(file) do
+  def process(file, count) do
     {:ok, contents} = File.read(file)
 
     rules = String.trim(contents)
@@ -20,7 +20,7 @@ defmodule Day21 do
 
     initial = [[".","#","."],[".",".","#"],["#","#","#"]]
 
-    puzzle = Enum.reduce(1..18, initial, fn(_, puzzle) ->
+    puzzle = Enum.reduce(1..count, initial, fn(_, puzzle) ->
       tick(puzzle, rules)
     end)
 
