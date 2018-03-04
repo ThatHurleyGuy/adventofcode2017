@@ -41,7 +41,6 @@ defmodule Day21 do
   end
 
   defp split_puzzle(input, rules) do
-    # This needs to split based on if it's divisible by 2 or 3
     divisor = if length(input) |> rem(2) == 0, do: 2, else: 3
 
     Enum.chunk_every(input, divisor)
