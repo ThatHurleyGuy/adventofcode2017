@@ -1,4 +1,48 @@
 defmodule Day18 do
+  def process_multiple(file) do
+    {:ok, contents} = File.read(file)
+    commands = String.trim(contents)
+    |> String.split("\n")
+    |> Enum.map(&(String.split(&1, " ")))
+
+    registers1 = %{"p" => 0}
+    registers2 = %{"p" => 1}
+    Stream.iterate([{registers1, 0}, {registers2, 0}], fn([{registers1, counter1}, {registers2, counter2}]) ->
+      instruction1 = Enum.at(commands, counter1)
+      # IO.inspect instruction1
+      {registers1, counter1} = process_instruction(instruction1, counter1, registers1)
+      instruction2 = Enum.at(commands, counter2)
+      # IO.inspect instruction2
+      {registers2, counter2} = process_instruction(instruction2, counter2, registers2)
+
+      {snd1, registers1} = Map.get_and_update(registers1, "snd", fn(value) ->
+        {value, nil}
+      end)
+      {snd2, registers2} = Map.get_and_update(registers2, "snd", fn(value) ->
+        {value, nil}
+      end)
+      registers1 = if snd2 do
+        IO.inspect "sending"
+        Map.update(registers1, "rcv", [snd2], fn(value) ->
+          value ++ [snd2]
+        end)
+      else
+        registers1
+      end
+      registers2 = if snd1 do
+        Map.update(registers2, "rcv", [snd1], fn(value) ->
+          value ++ [snd1]
+        end)
+      else
+        registers2
+      end
+      [{registers1, counter1}, {registers2, counter2}]
+    end)
+    |> Enum.take(1000000)
+
+    nil
+  end
+
   def process(file) do
     {:ok, contents} = File.read(file)
     commands = String.trim(contents)
@@ -21,7 +65,7 @@ defmodule Day18 do
   end
 
   defp process_instruction(["add", reg, value], counter, registers) do
-    value = String.to_integer(value)
+    value = register_or_value(registers, value)
     {Map.update(registers, reg, value, fn(add) -> add + value end), counter+1}
   end
 
@@ -36,16 +80,22 @@ defmodule Day18 do
   end
 
   defp process_instruction(["snd", reg], counter, registers) do
-    reg = registers[reg]
+    reg = register_or_value(registers, reg)
     {Map.put(registers, "snd", reg), counter+1}
   end
 
   defp process_instruction(["rcv", reg], counter, registers) do
-    reg = registers[reg]
-    if reg != 0 do
-      {Map.put(registers, "rcv", registers["snd"]), counter+1}
+    {rcv, registers} = Map.get_and_update(registers, "rcv", fn(rcv) ->
+      case rcv do
+        nil -> {nil, []}
+        [] -> {nil, []}
+        [head | rest] -> {head, rest}
+      end
+    end)
+    if rcv do
+      {Map.put(registers, reg, rcv), counter+1}
     else
-      {registers, counter+1}
+      {registers, counter}
     end
   end
 

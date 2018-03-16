@@ -33,6 +33,7 @@ defmodule AdventOfCode2017 do
       "17" -> Day17.spinlock(301, 2017, 2017)
       "17.2" -> Day17.part2(301, 50000000, 0)
       "18" -> Day18.process("data/day18.txt")
+      "18.2" -> Day18.process_multiple("data/day18.txt")
       "19" -> Day19.process("data/day19.txt")
       "20" -> Day20.find_closest("data/day20.txt")
       "20.2" -> Day20.count_left("data/day20.txt")
