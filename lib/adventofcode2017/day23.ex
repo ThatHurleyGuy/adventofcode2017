@@ -1,4 +1,42 @@
 defmodule Day23 do
+  def process_fast do
+    d = e = f = h = 0
+    b = 93 * 100 + 100000
+    c = b + 17000
+    loop3(b,c,d,e,f,h)
+  end
+
+  defp loop3(b,c,_,_,_,h) do
+    f = 1
+    d = 2
+    e = 2
+
+    {b,d,e,f} = loop2(b,d,e,f)
+    h = if f == 0 do
+      h+1
+    else
+      h
+    end
+
+    if b == c do
+      h
+    else
+      b = b + 17
+      loop3(b,c,d,e,f,h)
+    end
+  end
+
+  defp loop2(b,d,e,f) do
+    divisible = d..(b-1)
+    |> Enum.any?(fn(d) -> rem(b, d) == 0 end)
+
+    if divisible do
+      {b,d,e,0}
+    else
+      {b,d,e,f}
+    end
+  end
+
   def process(file) do
     {:ok, contents} = File.read(file)
     commands = String.trim(contents)
@@ -7,7 +45,7 @@ defmodule Day23 do
 
     registers = %{
       "mul" => 0,
-      "a" => 0,
+      "a" => 1,
       "b" => 0,
       "c" => 0,
       "d" => 0,
@@ -24,7 +62,7 @@ defmodule Day23 do
       counter >= length(commands)
     end)
     |> elem(0)
-    |> Map.get("mul")
+    |> Map.get("h")
   end
 
   defp process_instruction(["set", reg, value], counter, registers) do
