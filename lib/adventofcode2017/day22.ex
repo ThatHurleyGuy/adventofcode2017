@@ -14,26 +14,22 @@ defmodule Day22 do
     end)
 
     start_node = start_node(start)
-    |> IO.inspect
-    Stream.iterate({0, start, start_node}, &next_state/1)
-    |> Enum.take(10001)
+
+    {infections, _, _} = Stream.iterate({0, start, start_node}, &next_state/1)
+    |> Enum.take(10000001)
     |> List.last
+    infections
   end
 
   defp next_state({infections, state, %{position: position, direction: direction}}) do
-    {infections, state} = Map.get_and_update(state, position, fn(infect_status) ->
+    {{infections, direction}, state} = Map.get_and_update(state, position, fn(infect_status) ->
       case infect_status do
-        "#" -> {infections, "."}
-        _ -> {infections+1, "#"}
+        "#" -> {{infections, turn_right(direction)}, "f"}
+        "f" -> {{infections, reverse(direction)}, "."}
+        "w" -> {{infections+1, direction}, "#"}
+        _ -> {{infections, turn_left(direction)}, "w"}
       end
     end)
-
-    current_node = state[position]
-    direction = if current_node == "#" do
-      turn_left(direction)
-    else
-      turn_right(direction)
-    end
 
     {cx, cy} = case direction do
       "u" -> {0, -1}
@@ -45,6 +41,15 @@ defmodule Day22 do
     node = {x + cx, y + cy}
 
     {infections, state, %{position: node, direction: direction}}
+  end
+
+  defp reverse(direction) do
+    case direction do
+      "u" -> "d"
+      "l" -> "r"
+      "d" -> "u"
+      "r" -> "l"
+    end
   end
 
   defp turn_left(direction) do
