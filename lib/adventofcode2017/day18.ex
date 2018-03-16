@@ -9,10 +9,8 @@ defmodule Day18 do
     registers2 = %{"p" => 1}
     Stream.iterate([{registers1, 0}, {registers2, 0}], fn([{registers1, counter1}, {registers2, counter2}]) ->
       instruction1 = Enum.at(commands, counter1)
-      # IO.inspect instruction1
       {registers1, counter1} = process_instruction(instruction1, counter1, registers1)
       instruction2 = Enum.at(commands, counter2)
-      # IO.inspect instruction2
       {registers2, counter2} = process_instruction(instruction2, counter2, registers2)
 
       {snd1, registers1} = Map.get_and_update(registers1, "snd", fn(value) ->
