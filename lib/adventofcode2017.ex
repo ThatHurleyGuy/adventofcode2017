@@ -38,6 +38,7 @@ defmodule AdventOfCode2017 do
       "20.2" -> Day20.count_left("data/day20.txt")
       "21" -> Day21.process("data/day21.txt", 5)
       "21.2" -> Day21.process("data/day21.txt", 18)
+      "22" -> Day22.infect("data/day22.txt")
     end
 
     IO.inspect result, limit: :infinity
