@@ -12,6 +12,8 @@ defmodule AdventOfCode2017 do
       "5.2" -> Day5.part2("data/day5.txt")
       "6" -> Day6.count_steps("data/day6.txt")
       "6.2" -> Day6.count_infinite_loop("data/day6.txt")
+      "7" -> Day7.bottom_program("data/day7.txt")
+      "7.2" -> Day7.balance("data/day7.txt")
       "8" -> Day8.largest_register("data/day8.txt")
       "8.2" -> Day8.largest_register_ever("data/day8.txt")
       "9" -> Day9.groups("data/day9.txt")
