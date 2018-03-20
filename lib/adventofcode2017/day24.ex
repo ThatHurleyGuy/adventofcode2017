@@ -26,12 +26,18 @@ defmodule Day24 do
     end)
 
     max = if children_weights == [] do
-      0
+      {0, 0}
     else
-      Enum.max(children_weights)
+      Enum.reduce(children_weights, {0,0}, fn({length, weight}, {max_length, max_weight}) ->
+        if length >= max_length && weight >= max_weight do
+          {length, weight}
+        else
+          {max_length, max_weight}
+        end
+      end)
     end
 
-    Enum.sum(head) + max
+    {elem(max, 0) + 1, Enum.sum(head) + elem(max, 1)}
   end
 
   defp children([_, second], closed_set, nodes) do
