@@ -42,6 +42,7 @@ defmodule AdventOfCode2017 do
       "22" -> Day22.infect("data/day22.txt")
       "23" -> Day23.process("data/day23.txt")
       "23.2" -> Day23.process_fast()
+      "24" -> Day24.process("data/day24.txt")
     end
 
     IO.inspect result, limit: :infinity
