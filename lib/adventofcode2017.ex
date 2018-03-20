@@ -43,6 +43,7 @@ defmodule AdventOfCode2017 do
       "23" -> Day23.process("data/day23.txt")
       "23.2" -> Day23.process_fast()
       "24" -> Day24.process("data/day24.txt")
+      "25" -> Day25.checksum(12368930)
     end
 
     IO.inspect result, limit: :infinity
